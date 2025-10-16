@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -71,28 +71,27 @@
         /* Form Submission Animation */
         @keyframes button-glow {
             50% {
-                box-shadow: 0 0 20px #FFD700, 0 0 30px #E0C200;
+                box-shadow: 0 0 20px #4CAF50, 0 0 30px #81C784;
             }
         }
         #submitButton.is-animating {
             animation: button-glow 1.5s ease-in-out;
         }
-        .sparkle {
+        .confetti-piece {
             position: absolute;
             bottom: 20%;
-            background: #FFD700;
             border-radius: 50%;
             pointer-events: none;
             opacity: 0;
-            animation: sparkle-up 1.5s ease-out;
+            animation: confetti-up 1.8s ease-out;
         }
-        @keyframes sparkle-up {
+        @keyframes confetti-up {
             0% {
-                transform: translateY(0) scale(1);
+                transform: translateY(0) scale(1) rotate(0deg);
                 opacity: 1;
             }
             100% {
-                transform: translateY(-150px) scale(0);
+                transform: translateY(-200px) scale(0) rotate(360deg);
                 opacity: 0;
             }
         }
@@ -110,6 +109,42 @@
         }
         .registration-closed-effect {
             animation: pulsing-glow 2.5s ease-in-out infinite;
+        }
+
+        /* Burger Menu Animation */
+        #mobile-menu-button > div > span {
+            background-color: #5D4037; /* earth-brown */
+        }
+
+        #mobile-menu-button.open > div > span:nth-of-type(1) {
+            transform: translateY(0px) rotate(45deg);
+        }
+
+        #mobile-menu-button.open > div > span:nth-of-type(2) {
+            opacity: 0;
+        }
+
+        #mobile-menu-button.open > div > span:nth-of-type(3) {
+            transform: translateY(0px) rotate(-45deg);
+        }
+
+        /* Typing Animation */
+        @keyframes typing {
+          from { width: 0; }
+          to { width: 100%; }
+        }
+        @keyframes blink-caret {
+          from, to { border-color: transparent; }
+          50% { border-color: #5D4037; } /* earth-brown cursor */
+        }
+        .typing-animation {
+          display: inline-block;
+          overflow: hidden;
+          white-space: nowrap;
+          border-right: .15em solid #5D4037;
+          animation:
+            typing 3s steps(44, end),
+            blink-caret .75s step-end infinite;
         }
     </style>
 </head>
@@ -132,11 +167,17 @@
                 <a href="#home" class="hover:text-green-700 transition-transform transform hover:scale-105">Home</a>
                 <a href="#programs" class="hover:text-green-700 transition-transform transform hover:scale-105">Programs</a>
                 <a href="#about" class="hover:text-green-700 transition-transform transform hover:scale-105">About</a>
+                <a href="#resources" class="hover:text-green-700 transition-transform transform hover:scale-105">Resources</a>
                 <a href="#contact" class="hover:text-green-700 transition-transform transform hover:scale-105">Contact</a>
                 <a href="#register" class="bg-green-700 text-white px-4 py-2 rounded-full hover:bg-green-800 transition-transform transform hover:scale-105 shadow-lg">Join Now</a>
             </div>
-            <button id="mobile-menu-button" class="md:hidden">
-                <i data-lucide="menu"></i>
+            <button id="mobile-menu-button" class="md:hidden relative w-8 h-8 focus:outline-none z-50">
+                <span class="sr-only">Open main menu</span>
+                <div class="block w-5 absolute left-1/2 top-1/2 transform -translate-x-1.2 -translate-y-1/2">
+                    <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out -translate-y-1.5"></span>
+                    <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out"></span>
+                    <span aria-hidden="true" class="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out translate-y-1.5"></span>
+                </div>
             </button>
         </nav>
         <!-- Mobile Menu -->
@@ -144,6 +185,7 @@
             <a href="#home" class="block hover:text-green-700 transition-transform transform hover:scale-105 origin-left">Home</a>
             <a href="#programs" class="block hover:text-green-700 transition-transform transform hover:scale-105 origin-left">Programs</a>
             <a href="#about" class="block hover:text-green-700 transition-transform transform hover:scale-105 origin-left">About</a>
+            <a href="#resources" class="block hover:text-green-700 transition-transform transform hover:scale-105 origin-left">Resources</a>
             <a href="#contact" class="block hover:text-green-700 transition-transform transform hover:scale-105 origin-left">Contact</a>
             <a href="#register" class="block bg-green-700 text-white text-center mt-2 px-4 py-2 rounded-full hover:bg-green-800 transition-transform transform hover:scale-105 shadow-lg">Join Now</a>
         </div>
@@ -160,26 +202,9 @@
                 <a href="#register" class="mt-10 inline-block bg-green-700 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-green-800 transition transform hover:scale-105 shadow-xl reveal" style="transition-delay: 0.4s;">
                     Join the New Batch
                 </a>
-                <div id="countdown" class="mt-12 max-w-lg mx-auto bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-lg border reveal" style="transition-delay: 0.6s;">
-                    <h3 class="text-xl font-semibold earth-brown mb-4">Registration Closes Soon!</h3>
-                    <div class="grid grid-cols-4 gap-4 text-center">
-                        <div>
-                            <span id="days" class="text-4xl font-bold earth-brown">00</span>
-                            <span class="block text-sm text-gray-500">Days</span>
-                        </div>
-                        <div>
-                            <span id="hours" class="text-4xl font-bold earth-brown">00</span>
-                            <span class="block text-sm text-gray-500">Hours</span>
-                        </div>
-                        <div>
-                            <span id="minutes" class="text-4xl font-bold earth-brown">00</span>
-                            <span class="block text-sm text-gray-500">Minutes</span>
-                        </div>
-                        <div>
-                            <span id="seconds" class="text-4xl font-bold earth-brown">00</span>
-                            <span class="block text-sm text-gray-500">Seconds</span>
-                        </div>
-                    </div>
+                <div id="registration-info" class="mt-12 max-w-lg mx-auto bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-lg border reveal" style="transition-delay: 0.6s;">
+                    <h3 class="text-2xl font-bold text-green-700 mb-2">New Batch Starting in October!</h3>
+                    <p class="text-lg font-semibold earth-brown">Registrations are now open!</p>
                 </div>
             </div>
         </section>
@@ -191,49 +216,53 @@
                     <h2 class="text-3xl md:text-4xl font-bold earth-brown reveal">Our Mentorship Programs</h2>
                     <p class="mt-4 text-gray-600 max-w-xl mx-auto reveal">Choose a plan that fits your preparation needs and goals.</p>
                 </div>
-                <div class="grid md:grid-cols-3 gap-8">
+                <div class="grid md:grid-cols-3 gap-8 items-start">
                     <!-- Quartz Plan -->
                     <div class="border rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow bg-stone-50 reveal">
                         <div class="text-center">
                             <h3 class="text-2xl font-bold earth-brown">Quartz (Basic)</h3>
-                            <p class="text-4xl font-bold mt-4">₹800</p>
-                            <p class="text-sm text-gray-500">per 2 months</p>
+                            <p class="text-lg text-gray-500 mt-1">Good for concept revision</p>
+                            <p class="text-4xl font-bold mt-4">₹1500 <span class="text-2xl text-gray-400 line-through">₹2100</span></p>
+                            <p class="text-sm text-gray-500">for 12 Weeks</p>
                         </div>
-                        <ul class="mt-8 space-y-4 text-gray-700">
-                            <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>4 Live Interactive Sessions</li>
-                            <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>4 Mock Tests</li>
-                            <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>Comprehensive Study Materials</li>
+                        <ul class="mt-8 space-y-3 text-gray-700">
+                            <li class="flex items-center"><i data-lucide="x-circle" class="text-red-500 mr-3"></i>Live Classes</li>
+                            <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>Recorded Classes</li>
+                            <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>Tests/Mock Tests</li>
+                            <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>Exam Guidance</li>
+                            <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>One-to-One Guidance</li>
+                            <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>Answer Writing Guidance</li>
+                            <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>Note Templates & Study Planners</li>
                         </ul>
-                        <p class="text-sm text-gray-500 mt-6 text-center">Next 2-month continuation: ₹500</p>
                     </div>
                     <!-- Garnet Plan -->
-                    <div class="border rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-shadow bg-white ring-2 ring-green-700 transform scale-105 reveal" style="transition-delay: 0.2s;">
+                    <div class="border rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-shadow bg-white ring-2 ring-green-700 transform md:scale-105 reveal" style="transition-delay: 0.2s;">
                          <div class="text-center relative">
                              <span class="absolute -top-12 left-1/2 -translate-x-1/2 bg-green-700 text-white px-4 py-1 text-sm rounded-full font-semibold">Most Popular</span>
                             <h3 class="text-2xl font-bold text-green-800">Garnet (Silver)</h3>
-                            <p class="text-4xl font-bold mt-4">₹1200</p>
-                            <p class="text-sm text-gray-500">per 2 months</p>
+                             <p class="text-lg text-gray-500 mt-1">Good for exam preparation</p>
+                            <p class="text-4xl font-bold mt-4">₹3000 <span class="text-2xl text-gray-400 line-through">₹3500</span></p>
+                            <p class="text-sm text-gray-500">for 15 Weeks</p>
                         </div>
-                        <ul class="mt-8 space-y-4 text-gray-700">
-                            <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>8 Live Interactive Sessions</li>
-                            <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>4 Mock Tests</li>
-                            <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>Comprehensive Study Materials</li>
+                        <ul class="mt-8 space-y-3 text-gray-700">
+                            <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i><b>All features from Quartz, plus:</b></li>
+                            <li class="flex items-center font-semibold"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>Live Interactive Classes</li>
+                             <li class="flex items-center"><i data-lucide="x-circle" class="text-red-500 mr-3"></i>Resume Review</li>
                         </ul>
-                        <p class="text-sm text-gray-500 mt-6 text-center">Next 2-month continuation: ₹1000</p>
                     </div>
                     <!-- Diamond Plan -->
                     <div class="border rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow bg-stone-50 reveal" style="transition-delay: 0.4s;">
                         <div class="text-center">
                             <h3 class="text-2xl font-bold earth-brown">Diamond (Gold)</h3>
-                            <p class="text-4xl font-bold mt-4">₹1600</p>
-                            <p class="text-sm text-gray-500">per 2 months</p>
+                             <p class="text-lg text-gray-500 mt-1">Best for overall improvement</p>
+                            <p class="text-4xl font-bold mt-4">₹4000 <span class="text-2xl text-gray-400 line-through">₹5000</span></p>
+                            <p class="text-sm text-gray-500">for 15 Weeks</p>
                         </div>
-                        <ul class="mt-8 space-y-4 text-gray-700">
-                            <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>8 Live Interactive Sessions</li>
-                            <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>Resume Review Session</li>
-                            <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>One Mega Exam Test Series</li>
+                        <ul class="mt-8 space-y-3 text-gray-700">
+                           <li class="flex items-center"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i><b>All features from Garnet, plus:</b></li>
+                           <li class="flex items-center font-semibold"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>Exclusive Resume Review</li>
+                           <li class="flex items-center font-semibold"><i data-lucide="check-circle-2" class="text-green-600 mr-3"></i>Mega Mock Test Series</li>
                         </ul>
-                        <p class="text-sm text-gray-500 mt-6 text-center">Next 2-month continuation: ₹1500</p>
                     </div>
                 </div>
             </div>
@@ -266,17 +295,55 @@
 
         <!-- Batch Schedule -->
         <section id="schedule" class="py-20 bg-white">
-            <div class="container mx-auto px-6 text-center">
-                <div class="reveal">
-                    <h2 class="text-3xl md:text-4xl font-bold earth-brown">Next Batch Starts 8th October 2025</h2>
-                    <p class="mt-4 text-lg text-gray-600">Join us for live online sessions and kickstart your preparation.</p>
-                    <div class="mt-8 inline-flex items-center bg-stone-100 p-6 rounded-2xl shadow-md border">
-                        <i data-lucide="calendar-days" class="w-12 h-12 text-green-700 mr-6"></i>
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold earth-brown reveal">Mentorship Schedule</h2>
+                    <p class="mt-4 text-gray-600 max-w-2xl mx-auto reveal">A 15-week journey covering the entire geology syllabus, with flexible sessions and dedicated exam strategy discussions.</p>
+                     <div class="mt-8 inline-flex items-center bg-stone-100 p-4 rounded-2xl shadow-md border reveal">
+                        <i data-lucide="calendar-days" class="w-10 h-10 text-green-700 mr-4"></i>
                         <div>
-                            <p class="text-xl font-semibold text-left">Wednesday & Thursday</p>
-                            <p class="text-lg text-gray-600 text-left">7:00 PM – 9:00 PM (Online)</p>
+                            <p class="text-lg font-semibold text-left">Wednesday & Thursday</p>
+                            <p class="text-md text-gray-600 text-left">7:00 PM – 9:00 PM (Online)</p>
                         </div>
                     </div>
+                </div>
+
+                <div class="max-w-3xl mx-auto reveal">
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-3 gap-4 p-4 bg-stone-50 rounded-lg font-semibold">
+                            <div class="col-span-1">Week</div>
+                            <div class="col-span-2">Topic</div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 p-4 bg-white rounded-lg border">
+                            <div class="font-semibold">1-3</div>
+                            <div>Physical Geology, Mineralogy, Petrology</div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 p-4 bg-stone-50 rounded-lg">
+                            <div class="font-semibold">4-6</div>
+                            <div>Structural Geology, Tectonics, Paleontology</div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 p-4 bg-white rounded-lg border">
+                             <div class="font-semibold">7-9</div>
+                            <div>Stratigraphy, Ore Geology, Hydrogeology & RS</div>
+                        </div>
+                         <div class="grid grid-cols-3 gap-4 p-4 bg-stone-50 rounded-lg">
+                            <div class="font-semibold">10-12</div>
+                            <div>Geophysics, Geochemistry, Applied Geology (Petroleum, Mining, Engineering)</div>
+                        </div>
+                         <div class="grid grid-cols-3 gap-4 p-4 bg-amber-50 rounded-lg border border-amber-300">
+                            <div class="font-semibold">13*</div>
+                            <div>Oceanography and Climatology</div>
+                        </div>
+                         <div class="grid grid-cols-3 gap-4 p-4 bg-amber-50 rounded-lg border border-amber-300">
+                            <div class="font-semibold">14*</div>
+                            <div>Exam Strategy Sessions</div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 p-4 bg-amber-50 rounded-lg border border-amber-300">
+                            <div class="font-semibold">15*</div>
+                            <div>Mega Mock Test</div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4 text-center">*Weeks 13-15 are for Silver and Gold members only. Schedule subject to change.</p>
                 </div>
             </div>
         </section>
@@ -287,18 +354,44 @@
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold earth-brown reveal">What Our Students Say</h2>
                 </div>
-                <div class="grid md:grid-cols-3 gap-8">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="bg-white p-6 rounded-2xl shadow-lg border reveal">
-                        <p class="text-gray-600">"The mentorship helped me clear my doubts and prepare better for GATE! The mock tests were especially useful."</p>
-                        <p class="mt-4 font-bold earth-brown">- Priya S.</p>
+                        <p class="text-gray-600 italic">"The concept capsules have been very helpful as we started with the basics, my favourite part of the mentorship would be the solving of PYQs as they provided me with clarity on how the questions will be asked."</p>
+                        <p class="mt-4 font-bold earth-brown">- Batch 1 Student</p>
                     </div>
                     <div class="bg-white p-6 rounded-2xl shadow-lg border reveal" style="transition-delay: 0.2s;">
-                        <p class="text-gray-600">"Apoorva ma'am's teaching style is excellent. She breaks down difficult topics into simple, understandable parts."</p>
-                        <p class="mt-4 font-bold earth-brown">- Rohan K.</p>
+                        <p class="text-gray-600 italic">"What makes Apoorva stand out is her innovative teaching style: using mnemonics, lyrics, and even songs to simplify complex concepts. These creative methods made learning fun, interactive, and easy to remember."</p>
+                        <p class="mt-4 font-bold earth-brown">- Batch 1 Student</p>
                     </div>
                     <div class="bg-white p-6 rounded-2xl shadow-lg border reveal" style="transition-delay: 0.4s;">
-                        <p class="text-gray-600">"The study materials are very comprehensive. I finally feel confident about my preparation for the CSIR-NET exam."</p>
-                        <p class="mt-4 font-bold earth-brown">- Anjali M.</p>
+                        <p class="text-gray-600 italic">"The mentorship program has been a turning point in my journey. It provided me with clear guidance, practical strategies, and the confidence to pursue my goals. I am grateful for the constant support."</p>
+                        <p class="mt-4 font-bold earth-brown">- Batch 1 Student</p>
+                    </div>
+                     <div class="hidden lg:block bg-white p-6 rounded-2xl shadow-lg border reveal" style="transition-delay: 0.6s;">
+                        <p class="text-gray-600 italic">"Apoorva is the best and friendly mentor. Her way of explaining is more friendly, informative and comfortable. She makes sure that every concept is covered."</p>
+                        <p class="mt-4 font-bold earth-brown">- Batch 1 Student</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Career Path Explorer -->
+        <section id="career-explorer" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold earth-brown reveal">✨ Explore Your Future in Geology</h2>
+                    <p class="mt-4 text-gray-600 max-w-2xl mx-auto reveal">Not sure where a geology degree can take you? Describe your interests below, and our AI guide will suggest some career paths for you!</p>
+                </div>
+                <div class="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg border reveal">
+                    <div class="space-y-4">
+                        <label for="interests-input" class="block text-sm font-medium text-gray-700">Your Interests:</label>
+                        <textarea id="interests-input" rows="4" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500" placeholder="e.g., I love working outdoors, hiking, and am interested in water resources..."></textarea>
+                        <button id="explore-careers-btn" class="w-full bg-amber-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-amber-700 transition shadow-md">
+                            Discover Career Paths
+                        </button>
+                    </div>
+                    <div id="career-results" class="mt-8">
+                        <!-- AI-generated career paths will be displayed here -->
                     </div>
                 </div>
             </div>
@@ -360,9 +453,9 @@
                             <div>
                                 <label for="plan" class="block text-sm font-medium text-gray-700">Preferred Plan</label>
                                 <select id="plan" name="Plan" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 bg-white">
-                                    <option>Quartz (Basic)</option>
-                                    <option>Garnet (Silver)</option>
-                                    <option>Diamond (Gold)</option>
+                                    <option>Quartz (Basic) - ₹1500</option>
+                                    <option>Garnet (Silver) - ₹3000</option>
+                                    <option>Diamond (Gold) - ₹4000</option>
                                 </select>
                             </div>
                         </div>
@@ -392,6 +485,10 @@
                         <i data-lucide="mail" class="w-6 h-6 mr-3"></i>
                         geology.apoorva95@gmail.com
                     </a>
+                     <a href="tel:7378761942" class="flex items-center text-lg text-gray-700 hover:text-green-700 transition">
+                        <i data-lucide="phone" class="w-6 h-6 mr-3"></i>
+                        7378761942
+                    </a>
                 </div>
                 <div class="mt-8 flex justify-center space-x-6 reveal">
                     <a href="#" class="text-gray-500 hover:text-green-700"><i data-lucide="instagram" class="w-8 h-8"></i></a>
@@ -414,6 +511,7 @@
                     <a href="#home" class="hover:text-green-300 transition-transform transform hover:scale-105">Home</a>
                     <a href="#about" class="hover:text-green-300 transition-transform transform hover:scale-105">About</a>
                     <a href="#programs" class="hover:text-green-300 transition-transform transform hover:scale-105">Programs</a>
+                    <a href="#resources" class="hover:text-green-300 transition-transform transform hover:scale-105">Resources</a>
                     <a href="#contact" class="hover:text-green-300 transition-transform transform hover:scale-105">Contact</a>
                 </div>
             </div>
@@ -480,13 +578,20 @@
 
     <script>
         // --- GEMINI API SETUP ---
-        const API_KEY = "AIzaSyD4pIVHYfj5J2k06ttSWlnWKT5MPF1qPnE"; // Leave empty, handled by the environment
+        const API_KEY = "AIzaSyD4pIVHYfj5J2k06ttSWlnWKT5MPF1qP"; // Leave empty, handled by the environment
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
 
-        async function callGeminiAPI(prompt) {
+        async function callGeminiAPI(prompt, schema = null) {
             const payload = {
                 contents: [{ parts: [{ text: prompt }] }],
             };
+
+            if (schema) {
+                payload.generationConfig = {
+                    responseMimeType: "application/json",
+                    responseSchema: schema
+                };
+            }
 
             try {
                 const response = await fetch(API_URL, {
@@ -541,38 +646,11 @@
         const mobileMenu = document.getElementById('mobile-menu');
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+            mobileMenuButton.classList.toggle('open');
         });
 
-        // Countdown Timer
-        const countdownDate = new Date("October 6, 2025 23:59:59").getTime();
-
-        const countdownFunction = setInterval(() => {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            if(document.getElementById("days")) {
-                document.getElementById("days").innerText = String(days).padStart(2, '0');
-                document.getElementById("hours").innerText = String(hours).padStart(2, '0');
-                document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
-                document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
-            }
-
-
-            if (distance < 0) {
-                clearInterval(countdownFunction);
-                const countdownDiv = document.getElementById("countdown");
-                if(countdownDiv) {
-                   countdownDiv.innerHTML = "<h3 class='text-2xl font-bold registration-closed-effect'>Registration Closed</h3><p class='text-gray-600 mt-2'>Stay tuned for our next batch!</p>";
-                   countdownDiv.classList.add('border-red-300', 'bg-red-50');
-                }
-            }
-        }, 1000);
-
+        // Countdown Timer - REMOVED
+        
         // Scroll Animations
         const revealElements = document.querySelectorAll('.reveal');
         const revealOnScroll = () => {
@@ -593,60 +671,76 @@
         const formMessage = document.getElementById('formMessage');
         const submitButton = document.getElementById('submitButton');
 
+        function triggerSuccessAnimation() {
+            submitButton.classList.add('is-animating');
+            submitButton.querySelector('span').textContent = 'Thank You! ✨';
+
+            // Play sound effect with Tone.js
+            if (window.Tone) {
+                const synth = new Tone.Synth({
+                    oscillator: { type: 'sine' },
+                    envelope: { attack: 0.005, decay: 0.1, sustain: 0.3, release: 1 },
+                }).toDestination();
+                synth.triggerAttackRelease("E6", "8n", Tone.now());
+            }
+
+            // Create confetti
+            const confettiContainer = document.createElement('div');
+            confettiContainer.classList.add('absolute', 'inset-0');
+            submitButton.appendChild(confettiContainer);
+            const confettiColors = ['#4CAF50', '#FFD700', '#8D6E63', '#FFF59D', '#A5D6A7'];
+
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti-piece');
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+                
+                const size = Math.random() * 5 + 3; // size between 3px and 8px
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                
+                confettiContainer.appendChild(confetti);
+            }
+            
+            setTimeout(() => {
+                submitButton.classList.remove('is-animating');
+                if(confettiContainer) confettiContainer.remove();
+                
+                form.reset();
+                formMessage.innerHTML = '<p class="text-green-600 font-semibold">🎉 Thank You! Your registration is complete. We will contact you shortly.</p>';
+                submitButton.disabled = false;
+                submitButton.querySelector('span').textContent = 'Submit & Join Now';
+            }, 2000); // Wait for animation to finish
+        }
+
         form.addEventListener('submit', function (e) {
             e.preventDefault();
             
             // IMPORTANT: Replace this URL with your own Google Apps Script Web App URL
-            const scriptURL = ' https://script.google.com/macros/s/AKfycbwU2PD7-cMoprqyOCLDBhdL2LIvkg1G6T_RSZ2NjwyqTPx8FNxHXvDRwu2jIp1TlCUH/exec'; // <-- REPLACE THIS
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwU2PD7-cMoprqyOCLDBhdL2LIvkg1G6T_RSZ2NjwyqTPx8FNxHXvDRwu2jIp1TlCUH/exec'; // <-- REPLACE THIS
             
             submitButton.disabled = true;
             submitButton.querySelector('span').textContent = 'Submitting...';
             formMessage.innerHTML = ''; // Clear previous messages
+
+            // If the scriptURL is a placeholder, simulate success for the demo.
+            // YOU MUST REPLACE THE URL for the form to actually work.
+            if (scriptURL.includes('AKfycbwXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')) {
+                console.warn("Using placeholder URL. Simulating form submission.");
+                setTimeout(() => triggerSuccessAnimation(), 500); // Simulate network delay
+                return; 
+            }
             
             fetch(scriptURL, { method: 'POST', body: new FormData(form)})
                 .then(response => {
-                    console.log('Success!', response);
-                    
-                    // --- TRIGGER SUCCESS ANIMATION ---
-                    submitButton.classList.add('is-animating');
-
-                    // Play sound effect with Tone.js
-                    if (window.Tone) {
-                        const synth = new Tone.Synth({
-                            oscillator: { type: 'sine' },
-                            envelope: { attack: 0.005, decay: 0.1, sustain: 0.3, release: 1 },
-                        }).toDestination();
-                        synth.triggerAttackRelease("C6", "8n", Tone.now());
+                    if (response.ok) {
+                        console.log('Success!', response);
+                        triggerSuccessAnimation();
+                    } else {
+                        throw new Error('Network response was not ok.');
                     }
-
-                    // Create sparkles
-                    const sparkleContainer = document.createElement('div');
-                    sparkleContainer.classList.add('absolute', 'inset-0');
-                    submitButton.appendChild(sparkleContainer);
-
-                    for (let i = 0; i < 25; i++) {
-                        const sparkle = document.createElement('div');
-                        sparkle.classList.add('sparkle');
-                        sparkle.style.left = `${Math.random() * 100}%`;
-                        sparkle.style.animationDelay = `${Math.random() * 0.5}s`;
-                        
-                        const size = Math.random() * 4 + 2; // size between 2px and 6px
-                        sparkle.style.width = `${size}px`;
-                        sparkle.style.height = `${size}px`;
-                        sparkle.style.background = ['#FFD700', '#FFCC33', '#E0C200'][Math.floor(Math.random() * 3)];
-                        
-                        sparkleContainer.appendChild(sparkle);
-                    }
-                    
-                    setTimeout(() => {
-                        submitButton.classList.remove('is-animating');
-                        if(sparkleContainer) sparkleContainer.remove();
-                        
-                        form.reset();
-                        formMessage.innerHTML = '<p class="text-green-600 font-semibold">⛏️ Great! You’ve joined Dnyasa’s mentorship. Check your email for details.</p>';
-                        submitButton.disabled = false;
-                        submitButton.querySelector('span').textContent = 'Submit & Join Now';
-                    }, 1800); // Wait for animation to finish
                 })
                 .catch(error => {
                     console.error('Error!', error.message);
@@ -679,6 +773,79 @@
                 studyPlanModal.classList.add('hidden');
             }
         });
+
+        // --- CAREER PATH EXPLORER ---
+        const exploreBtn = document.getElementById('explore-careers-btn');
+        const interestsInput = document.getElementById('interests-input');
+        const careerResults = document.getElementById('career-results');
+
+        const careerPathSchema = {
+            type: "ARRAY",
+            items: {
+                type: "OBJECT",
+                properties: {
+                    "title": { "type": "STRING" },
+                    "description": { "type": "STRING" },
+                    "skills": {
+                        "type": "ARRAY",
+                        "items": { "type": "STRING" }
+                    }
+                },
+                required: ["title", "description", "skills"]
+            }
+        };
+        
+        exploreBtn.addEventListener('click', async () => {
+            const userInput = interestsInput.value;
+            if (!userInput.trim()) {
+                careerResults.innerHTML = '<p class="text-red-600 text-center">Please enter your interests to explore career paths.</p>';
+                return;
+            }
+
+            careerResults.innerHTML = `
+                <div class="text-center">
+                    <p class="text-lg earth-brown typing-animation">⛏️ Digging up some career paths for you...</p>
+                </div>
+            `;
+            exploreBtn.disabled = true;
+            exploreBtn.textContent = 'Discovering...';
+
+            const prompt = `Act as an expert geology career counselor. A student has described their interests as: '${userInput}'. Based on these interests, suggest 3 distinct career paths in geology. For each path, provide a 'Title', a 'Description' of what the job entails, and a list of 'Key Skills' required. Format the entire response as a JSON array of objects. Each object should have three keys: 'title', 'description', and 'skills' (which should be an array of strings).`;
+
+            try {
+                const jsonString = await callGeminiAPI(prompt, careerPathSchema);
+                const careerData = JSON.parse(jsonString);
+
+                careerResults.innerHTML = ''; // Clear loading message
+                careerData.forEach(career => {
+                    const skillsHtml = career.skills.map(skill => `<li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-2 mt-1 text-green-600 shrink-0"></i><span>${skill}</span></li>`).join('');
+                    
+                    const cardHtml = `
+                        <div class="bg-stone-50 p-6 rounded-xl shadow-md border mb-6">
+                            <h3 class="text-xl font-bold earth-brown flex items-center mb-2">
+                                <i data-lucide="briefcase" class="w-5 h-5 mr-3 text-green-700"></i>
+                                ${career.title}
+                            </h3>
+                            <p class="text-gray-700 mb-4">${career.description}</p>
+                            <h4 class="font-semibold text-gray-800 mb-2">Key Skills:</h4>
+                            <ul class="space-y-1 text-gray-600">
+                                ${skillsHtml}
+                            </ul>
+                        </div>
+                    `;
+                    careerResults.innerHTML += cardHtml;
+                });
+                lucide.createIcons(); // Re-render icons after adding new HTML
+
+            } catch (error) {
+                console.error("Failed to generate or parse career paths:", error);
+                careerResults.innerHTML = '<p class="text-red-600 text-center">Sorry, an error occurred while generating career paths. Please try again.</p>';
+            } finally {
+                exploreBtn.disabled = false;
+                exploreBtn.textContent = 'Discover Career Paths';
+            }
+        });
+
 
         // --- CHATBOT LOGIC ---
         const chatWidget = document.getElementById('chat-widget');
